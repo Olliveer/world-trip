@@ -1,0 +1,13 @@
+/* div.swiper-button-prev,
+div.swiper-button-next {
+  color: yellow;
+}
+
+span.swiper-pagination-bullet {
+  background-color: yellow;
+} */
+
+:root {
+  --swiper-navigation-color: yellow !important;
+  --swiper-theme-color: yellow !important;
+}
