@@ -2,42 +2,44 @@ import { Box, Text } from '@chakra-ui/react';
 import React from 'react';
 
 interface CarouselItemProps {
+  id: string;
   urlImage: string;
   continent: string;
   callText: string;
 }
 
 export function CarouselItem({
+  id,
   urlImage,
   continent,
   callText
 }: CarouselItemProps) {
   return (
     <Box
-      h="450px"
-      w="1240px"
+      w="100%"
       bgPos="center"
       bgRepeat="no-repeat"
       bgImage={`url('${urlImage}')`}
       bgSize="cover"
       bgPosition="center"
       textAlign="center"
-      py="180px"
+      h={['3xs', 'md']}
     >
       <Text
-        mb="16px"
         color="gray.100"
-        lineHeight="36px"
+        lineHeight={['9', '4.5rem']}
         fontWeight="bold"
-        fontSize="24px"
+        fontSize={['2xl', '5xl']}
+        value={id}
+        pt={['20', '44']}
       >
         {continent}
       </Text>
       <Text
         color="gray.100"
         fontWeight="bold"
-        fontSize="24px"
-        lineHeight="36px"
+        fontSize="sm"
+        lineHeight={['5', '9']}
       >
         {callText}
       </Text>

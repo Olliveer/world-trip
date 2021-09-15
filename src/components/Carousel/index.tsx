@@ -1,57 +1,41 @@
+import { Button } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper';
-import { CarouselItem } from './CarouselItem';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { CarouselItem } from './CarouselItem';
 
-export function Carousel() {
+type Continent = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  callText: string;
+};
+interface CarouselProps {
+  data: Continent[];
+}
+
+export function Carousel({ data }: CarouselProps) {
   return (
     <Swiper navigation modules={[Navigation, Pagination]} pagination>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe.jpg"
-          continent="Europa"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe2.jpg"
-          continent="América do Sul"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe.jpg"
-          continent="América do Norte"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe.jpg"
-          continent="Ásia"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe.jpg"
-          continent="África"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
-      <SwiperSlide>
-        <CarouselItem
-          urlImage="images/swiper/europe.jpg"
-          continent="Oceania"
-          callText="O continente mais antigo."
-        />
-      </SwiperSlide>
+      {data.map((item) => (
+        <SwiperSlide key={item.id}>
+          <Link href={`/continent/${item.id}`} passHref>
+            <Button as="a" variant="unstyled">
+              <CarouselItem
+                id={item.id}
+                urlImage={item.image}
+                continent={item.name}
+                callText={item.callText}
+              />
+            </Button>
+          </Link>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 }
