@@ -79,8 +79,9 @@ export function TravelTypes() {
           clássico
         </Text>
       </Flex>
-      <Center
-        gridColumn={['1 / span 2', 'auto']}
+      <Flex
+        ml={['50%', '0']}
+        w={['150px', 'auto']}
         flexDir={['row', 'column']}
         alignItems="center"
       >
@@ -95,7 +96,7 @@ export function TravelTypes() {
         >
           e mais...
         </Text>
-      </Center>
+      </Flex>
     </SimpleGrid>
   );
 }

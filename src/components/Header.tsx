@@ -21,11 +21,12 @@ export function Header({ backButton = false }: HeaderProps) {
         <Link href="/">
           <IconButton
             pos="absolute"
-            left={[4, 36]}
+            left={['4', '36']}
             aria-label="Back"
             variant="unstyled"
+            color="gray.300"
             fontSize={32}
-            icon={<RiArrowLeftSLine color="gray.300" />}
+            icon={<RiArrowLeftSLine />}
           />
         </Link>
       )}
