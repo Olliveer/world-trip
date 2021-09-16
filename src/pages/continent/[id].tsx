@@ -1,3 +1,4 @@
+import { InfoOutlineIcon } from '@chakra-ui/icons';
 import {
   Center,
   Flex,
@@ -5,9 +6,13 @@ import {
   HStack,
   Image,
   SimpleGrid,
-  Text
+  Text,
+  Tooltip,
+  Wrap,
+  WrapItem
 } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
@@ -38,9 +43,14 @@ interface Params extends ParsedUrlQuery {
 interface ContinentProps {
   countries: Country[];
   continent: ContinentPropsData;
+  count: number;
 }
 
-export default function Continent({ countries, continent }: ContinentProps) {
+export default function Continent({
+  countries,
+  continent,
+  count
+}: ContinentProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -49,6 +59,9 @@ export default function Continent({ countries, continent }: ContinentProps) {
 
   return (
     <Flex flexDir="column">
+      <Head>
+        <title>{`${continent.name} | Worldtrip`}</title>
+      </Head>
       <Header backButton />
 
       <Flex
@@ -92,12 +105,12 @@ export default function Continent({ countries, continent }: ContinentProps) {
           </Center>
         </GridItem>
         <GridItem>
-          <HStack
+          {/* <HStack
             mt={['4', '4', '14']}
             h="99px"
             mx={[0, 'auto']}
             justify="center"
-            spacing="10"
+            spacing={['2', '10']}
           >
             <Flex textAlign={['left', 'center']} flexDir="column">
               <Text
@@ -139,21 +152,102 @@ export default function Continent({ countries, continent }: ContinentProps) {
               <Text
                 color="yellow.1000"
                 fontWeight="semibold"
-                fontSize="5xl"
+                fontSize={['4xl', '5xl']}
                 lineHeight="4.5rem"
+                flexDir="column"
               >
                 27
               </Text>
               <Text
                 color="gray.300"
                 fontWeight="semibold"
-                fontSize="2xl"
-                lineHeight="9"
+                fontSize={['sm', '2xl']}
+                lineHeight={['sm', '9']}
               >
                 cidades +100
+                <Tooltip hasArrow label="Phone number" fontSize="md">
+                  <FiInfo />
+                </Tooltip>
               </Text>
             </Flex>
-          </HStack>
+          </HStack> */}
+          <Wrap
+            mt={['4', '4', '14']}
+            h="99px"
+            mx={[0, 'auto']}
+            justify="center"
+            spacing={6}
+          >
+            <WrapItem flexDir="column">
+              <Text
+                color="yellow.1000"
+                fontWeight="semibold"
+                fontSize={['4xl', '5xl']}
+                lineHeight="4.5rem"
+                flexDir="column"
+              >
+                50
+              </Text>
+              <Text
+                color="gray.300"
+                fontWeight="semibold"
+                fontSize={['sm', '2xl']}
+                lineHeight={['sm', '9']}
+                mr="2"
+              >
+                países
+              </Text>
+            </WrapItem>
+            <WrapItem flexDir="column">
+              <Text
+                color="yellow.1000"
+                fontWeight="semibold"
+                fontSize={['4xl', '5xl']}
+                lineHeight="4.5rem"
+                flexDir="column"
+              >
+                60
+              </Text>
+              <Text
+                color="gray.300"
+                fontWeight="semibold"
+                fontSize={['sm', '2xl']}
+                lineHeight={['sm', '9']}
+                mr="2"
+              >
+                línguas
+              </Text>
+            </WrapItem>
+            <WrapItem flexDir="column">
+              <Text
+                color="yellow.1000"
+                fontWeight="semibold"
+                fontSize={['4xl', '5xl']}
+                lineHeight="4.5rem"
+                flexDir="column"
+              >
+                27
+              </Text>
+              <Flex align="center">
+                <Text
+                  color="gray.300"
+                  fontWeight="semibold"
+                  fontSize={['sm', '2xl']}
+                  lineHeight={['sm', '9']}
+                  mr="2"
+                >
+                  cidades +100
+                </Text>
+                <Tooltip
+                  hasArrow
+                  label={`${count} países mais visitados`}
+                  fontSize="md"
+                >
+                  <InfoOutlineIcon />
+                </Tooltip>
+              </Flex>
+            </WrapItem>
+          </Wrap>
         </GridItem>
       </SimpleGrid>
 
@@ -243,7 +337,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       continent: continent.data,
-      countries: countrys.data
+      countries: countrys.data,
+      count: countrys.data.length
     },
     revalidate: 60 * 60 * 24 // 24 hours
   };

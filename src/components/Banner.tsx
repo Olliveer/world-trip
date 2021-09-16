@@ -25,7 +25,7 @@ export default function Banner() {
             mb={['2', '5']}
             lineHeight={['7', '3.375rem']}
           >
-            5 Continentes, infinitas possibilidades.
+            6 Continentes, infinitas possibilidades.
           </Heading>
           <Text
             fontSize={['sm', 'xl']}

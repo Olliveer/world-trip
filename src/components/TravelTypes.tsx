@@ -1,5 +1,6 @@
 import {
   Center,
+  Flex,
   Image,
   SimpleGrid,
   Text,
@@ -17,15 +18,15 @@ export function TravelTypes() {
 
   return (
     <SimpleGrid
-      mt={[9, 20]}
-      mb={[5, 20]}
-      mx={[9, 9, 36]}
+      mt={['9', '20']}
+      mb={['5', '20']}
+      mx={['2', '9', '36']}
       flex="1"
       gap=""
       minChildWidth="150px"
       align="flex-start"
     >
-      <Center flexDir={['row', 'column']}>
+      <Flex flexDir={['row', 'column']} alignItems="center">
         <Image display={['none', 'flex']} src="images/nightlife.svg" />
         {isWide && <BsDot size="36px" color="#FFBA08" />}
         <Text
@@ -34,11 +35,12 @@ export function TravelTypes() {
           lineHeight="4xl"
           color="gray.300"
           mt={['none', '6']}
+          mb={['2.5', '5']}
         >
           Vida noturna
         </Text>
-      </Center>
-      <Center flexDir={['row', 'column']} alignContent="center">
+      </Flex>
+      <Flex flexDir={['row', 'column']} alignItems="center">
         <Image display={['none', 'flex']} src="images/beach.svg" />
         {isWide && <BsDot size="36px" color="#FFBA08" />}
         <Text
@@ -50,8 +52,8 @@ export function TravelTypes() {
         >
           praia
         </Text>
-      </Center>
-      <Center flexDir={['row', 'column']} alignItems="center">
+      </Flex>
+      <Flex flexDir={['row', 'column']} alignItems="center">
         <Image display={['none', 'flex']} src="images/modern.svg" />
         {isWide && <BsDot size="36px" color="#FFBA08" />}
         <Text
@@ -63,8 +65,8 @@ export function TravelTypes() {
         >
           moderno
         </Text>
-      </Center>
-      <Center flexDir={['row', 'column']} alignItems="center">
+      </Flex>
+      <Flex flexDir={['row', 'column']} alignItems="center">
         <Image display={['none', 'flex']} src="images/classic.svg" />
         {isWide && <BsDot size="36px" color="#FFBA08" />}
         <Text
@@ -76,8 +78,12 @@ export function TravelTypes() {
         >
           clássico
         </Text>
-      </Center>
-      <Center flexDir={['row', 'column']} alignItems="center">
+      </Flex>
+      <Center
+        gridColumn={['1 / span 2', 'auto']}
+        flexDir={['row', 'column']}
+        alignItems="center"
+      >
         <Image display={['none', 'flex']} src="images/more.svg" />
         {isWide && <BsDot size="36px" color="#FFBA08" />}
         <Text
