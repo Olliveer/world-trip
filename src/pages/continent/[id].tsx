@@ -1,22 +1,12 @@
-import { InfoOutlineIcon } from '@chakra-ui/icons';
-import {
-  Center,
-  Flex,
-  GridItem,
-  HStack,
-  Image,
-  SimpleGrid,
-  Text,
-  Tooltip,
-  Wrap,
-  WrapItem
-} from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React from 'react';
+import { Cities } from '../../components/Cities';
 import { Header } from '../../components/Header';
+import { Info } from '../../components/Info';
 import { api } from '../../services/api';
 
 type ContinentPropsData = {
@@ -24,6 +14,8 @@ type ContinentPropsData = {
   name: string;
   image: string;
   description: string;
+  countries: string;
+  languages: string;
 };
 
 type Country = {
@@ -43,14 +35,9 @@ interface Params extends ParsedUrlQuery {
 interface ContinentProps {
   countries: Country[];
   continent: ContinentPropsData;
-  count: number;
 }
 
-export default function Continent({
-  countries,
-  continent,
-  count
-}: ContinentProps) {
+export default function Continent({ countries, continent }: ContinentProps) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -84,172 +71,12 @@ export default function Continent({
         </Text>
       </Flex>
 
-      <SimpleGrid
-        maxW="1160px"
-        mt={['6', '20']}
-        mx={['4', '4', '4', '4', 'auto']}
-        mb={['8', '20']}
-        gap={['4', '4rem']}
-        minChildWidth="320px"
-        align="center"
-      >
-        <GridItem>
-          <Center
-            fontSize={['sm', '2xl']}
-            fontWeight="normal"
-            lineHeight="9"
-            color="gray.300"
-            textAlign="justify"
-          >
-            {continent.description}
-          </Center>
-        </GridItem>
-        <GridItem>
-          {/* <HStack
-            mt={['4', '4', '14']}
-            h="99px"
-            mx={[0, 'auto']}
-            justify="center"
-            spacing={['2', '10']}
-          >
-            <Flex textAlign={['left', 'center']} flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize="5xl"
-                lineHeight="4.5rem"
-              >
-                50
-              </Text>
-              <Text
-                color="gray.300"
-                fontWeight="semibold"
-                fontSize="2xl"
-                lineHeight="9"
-              >
-                países
-              </Text>
-            </Flex>
-            <Flex textAlign={['left', 'center']} w="98px" flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize="5xl"
-                lineHeight="4.5rem"
-              >
-                60
-              </Text>
-              <Text
-                color="gray.300"
-                fontWeight="semibold"
-                fontSize="2xl"
-                lineHeight="9"
-              >
-                línguas
-              </Text>
-            </Flex>
-            <Flex textAlign={['left', 'center']} w="130" flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize={['4xl', '5xl']}
-                lineHeight="4.5rem"
-                flexDir="column"
-              >
-                27
-              </Text>
-              <Text
-                color="gray.300"
-                fontWeight="semibold"
-                fontSize={['sm', '2xl']}
-                lineHeight={['sm', '9']}
-              >
-                cidades +100
-                <Tooltip hasArrow label="Phone number" fontSize="md">
-                  <FiInfo />
-                </Tooltip>
-              </Text>
-            </Flex>
-          </HStack> */}
-          <Wrap
-            mt={['4', '4', '14']}
-            h="99px"
-            mx={[0, 'auto']}
-            justify="center"
-            spacing={6}
-          >
-            <WrapItem flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize={['4xl', '5xl']}
-                lineHeight="4.5rem"
-                flexDir="column"
-              >
-                50
-              </Text>
-              <Text
-                color="gray.300"
-                fontWeight="semibold"
-                fontSize={['sm', '2xl']}
-                lineHeight={['sm', '9']}
-                mr="2"
-              >
-                países
-              </Text>
-            </WrapItem>
-            <WrapItem flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize={['4xl', '5xl']}
-                lineHeight="4.5rem"
-                flexDir="column"
-              >
-                60
-              </Text>
-              <Text
-                color="gray.300"
-                fontWeight="semibold"
-                fontSize={['sm', '2xl']}
-                lineHeight={['sm', '9']}
-                mr="2"
-              >
-                línguas
-              </Text>
-            </WrapItem>
-            <WrapItem flexDir="column">
-              <Text
-                color="yellow.1000"
-                fontWeight="semibold"
-                fontSize={['4xl', '5xl']}
-                lineHeight="4.5rem"
-                flexDir="column"
-              >
-                27
-              </Text>
-              <Flex align="center">
-                <Text
-                  color="gray.300"
-                  fontWeight="semibold"
-                  fontSize={['sm', '2xl']}
-                  lineHeight={['sm', '9']}
-                  mr="2"
-                >
-                  cidades +100
-                </Text>
-                <Tooltip
-                  hasArrow
-                  label={`${count} países mais visitados`}
-                  fontSize="md"
-                >
-                  <InfoOutlineIcon />
-                </Tooltip>
-              </Flex>
-            </WrapItem>
-          </Wrap>
-        </GridItem>
-      </SimpleGrid>
+      <Info
+        description={continent.description}
+        totalContries={continent.countries}
+        totalLanguages={continent.languages}
+        cities={countries.length}
+      />
 
       <Flex flexDir="column" mt={['8', '20']} mb="9" mx={['4', '36']} h="2xl">
         <Text
@@ -263,53 +90,7 @@ export default function Continent({
         >
           Cidades +100
         </Text>
-        <SimpleGrid gap={['1', '5']} minChildWidth="320px" align="flex-start">
-          {countries.map((item) => (
-            <Flex
-              key={item.id}
-              flexDir="column"
-              mx={['14', 0]}
-              mb={['5', '12']}
-              w="2xs"
-              h="17.438rem"
-            >
-              <Image borderRadius="4px 4px 0 0" src={item.image} />
-
-              <HStack
-                border="1px solid #FFBA08"
-                borderTopWidth={0}
-                justifyContent="space-between"
-                px="6"
-                borderRadius="0 0 4px 4px"
-              >
-                <Flex flexDir="column">
-                  <Text
-                    fontFamily="Barlow"
-                    fontWeight={600}
-                    fontSize="xl"
-                    lineHeight="6"
-                    color="gray.300"
-                    mt="5"
-                    mb="3"
-                  >
-                    {item.capital}
-                  </Text>
-                  <Text
-                    color="gray.200"
-                    fontFamily="Barlow"
-                    fontSize="md"
-                    lineHeight="6"
-                    fontWeight="medium"
-                    mb="6"
-                  >
-                    {item.name}
-                  </Text>
-                </Flex>
-                <Image w="30px" h="30px" borderRadius="full" src={item.flag} />
-              </HStack>
-            </Flex>
-          ))}
-        </SimpleGrid>
+        <Cities countries={countries} />
       </Flex>
     </Flex>
   );
